@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PhysicsPusher : MonoBehaviour
 {
+    public GameObject gun;
     public GameObject bullet;
     public Transform pointer;
 
@@ -16,7 +17,14 @@ public class PhysicsPusher : MonoBehaviour
 
     void Update()
     {
-        Ray ray = new Ray(pointer.position, pointer.forward);
+        Vector3 position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+
+        position += new Vector3(-0.1f, 0.1f, -0.1f);
+
+        gun.transform.localPosition = position;
+        gun.transform.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
+
+        Ray ray = new Ray(position, gun.transform.forward);
 
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.Mouse0))
         {
