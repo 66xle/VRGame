@@ -4,40 +4,41 @@ using UnityEngine;
 
 public class PhysicsPusher : MonoBehaviour
 {
+    public GameObject bullet;
     public Transform pointer;
 
-    LineRenderer lineRenderer;
+    List<GameObject> bulletsFired;
 
     void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
+        bulletsFired = new List<GameObject>();
     }
 
     void Update()
     {
         Ray ray = new Ray(pointer.position, pointer.forward);
-        RaycastHit hit;
 
-        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.Mouse0))
         {
             Debug.Log("button pressed");
 
-            lineRenderer.positionCount = 2;
-            lineRenderer.SetPosition(0, ray.origin);
-            lineRenderer.SetPosition(1, ray.origin + 100 * ray.direction);
+            GameObject go = Instantiate(bullet, ray.origin, Quaternion.LookRotation(ray.direction));
+            go.GetComponent<Rigidbody>().AddForce(10000.0f * ray.direction);
 
-            if (Physics.Raycast(ray, out hit))
-            {
-                Rigidbody body = hit.collider.GetComponent<Rigidbody>();
-                if (body)
-                {
-                    body.AddForce(10000.0f * ray.direction);
-                }
-            }
+            bulletsFired.Add(go);
         }
-        else
+
+        for (int i = 0; i < bulletsFired.Count; i++)
         {
-            lineRenderer.positionCount = 0;
+            GameObject bullet = bulletsFired[i];
+
+            float distance = Vector3.Distance(pointer.position, bullet.transform.position);
+
+            if (distance >= 100.0f)
+            {
+                Destroy(bullet);
+                bulletsFired.Remove(bullet);
+            }
         }
     }
 }
