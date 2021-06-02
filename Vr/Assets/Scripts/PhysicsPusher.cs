@@ -20,6 +20,8 @@ public class PhysicsPusher : MonoBehaviour
 
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
         {
+            Debug.Log("button pressed");
+
             lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, ray.origin);
             lineRenderer.SetPosition(1, ray.origin + 100 * ray.direction);
