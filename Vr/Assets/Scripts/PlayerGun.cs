@@ -6,7 +6,6 @@ public class PlayerGun : MonoBehaviour
 {
     public Transform cameraRig;
     public GameObject bullet;
-    Transform pointer;
 
     bool allowKMDebug;
 
@@ -20,15 +19,15 @@ public class PlayerGun : MonoBehaviour
 
     Vector3 velocity = Vector3.zero;
     bool aimTriggered = false;
-    
 
+    LineRenderer lr;
     List<GameObject> bulletsFired;
 
     void Start()
     {
         allowKMDebug = Application.isEditor;
 
-        pointer = GameObject.Find("RightHandAnchor").transform;
+        lr = GetComponent<LineRenderer>();
 
         bulletsFired = new List<GameObject>();
     }
@@ -53,30 +52,33 @@ public class PlayerGun : MonoBehaviour
                 aimTriggered = false;
         }
 
-        // Set gun position
+
+        if (allowKMDebug)
+            position = new Vector3(0.3f, -0.2f, 0.3f);
+        else
+            position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, position, ref velocity, smoothTime);
+        
         if (aimTriggered)
         {
-            position = cameraRig.TransformPoint(new Vector3(aimXOffset, aimYOffset, aimDistance));
-
-            transform.position = Vector3.SmoothDamp(transform.position, position, ref velocity, smoothTime);
+            lr.SetPosition(0, position);
+            lr.SetPosition(1, transform.forward * 5000);
         }
         else
         {
-            if (allowKMDebug)
-                position = new Vector3(0.3f, -0.2f, 0.3f);
-            else
-                position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-
-            transform.localPosition = Vector3.SmoothDamp(transform.localPosition, position, ref velocity, smoothTime);
+            lr.SetPosition(0, position);
+            lr.SetPosition(1, position);
         }
-        
+
+
         // Bullet direction
         Ray ray = new Ray(position, transform.forward);
 
         // Shoot Bullet
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 2.0f), Quaternion.LookRotation(ray.direction));
+            GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 0.5f), Quaternion.LookRotation(ray.direction));
             go.GetComponent<Rigidbody>().AddForce(bulletSpeed * 100.0f * ray.direction);
             go.GetComponent<BulletLife>().lifeLeft = 100.0f;
 
@@ -88,7 +90,7 @@ public class PlayerGun : MonoBehaviour
         {
             GameObject bullet = bulletsFired[i];
 
-            float distance = Vector3.Distance(pointer.position, bullet.transform.position);
+            float distance = Vector3.Distance(position, bullet.transform.position);
 
             if (distance >= 100.0f)
             {
