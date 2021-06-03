@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerGun : MonoBehaviour
 {
     public Transform cameraRig;
-    public Transform pointer;
     public GameObject bullet;
+    Transform pointer;
 
     [Header("Gun Values")]
     public float bulletSpeed = 5.0f;
@@ -24,6 +24,8 @@ public class PlayerGun : MonoBehaviour
 
     void Start()
     {
+        pointer = GameObject.Find("RightHandAnchor").transform;
+
         bulletsFired = new List<GameObject>();
     }
 

@@ -1378,7 +1378,7 @@ MonoBehaviour:
   cameraRig: {fileID: 854905463}
   pointer: {fileID: 1370639141}
   bullet: {fileID: 1997336660774440809, guid: 764d705c5e2e81347bc208ee59b071e4, type: 3}
-  bulletSpeed: 2
+  bulletSpeed: 13
   bulletLife: 10
   smoothTime: 0.2
   aimDistance: 0.3
