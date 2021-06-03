@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TargetHit : MonoBehaviour
 {
+    public bool isTargetActive;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Bullet")
