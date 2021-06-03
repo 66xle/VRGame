@@ -8,6 +8,8 @@ public class PlayerGun : MonoBehaviour
     public GameObject bullet;
     Transform pointer;
 
+    bool allowKMDebug;
+
     [Header("Gun Values")]
     public float bulletSpeed = 5.0f;
     public float bulletLife = 100.0f;
@@ -24,6 +26,8 @@ public class PlayerGun : MonoBehaviour
 
     void Start()
     {
+        allowKMDebug = Application.isEditor;
+
         pointer = GameObject.Find("RightHandAnchor").transform;
 
         bulletsFired = new List<GameObject>();
@@ -32,10 +36,16 @@ public class PlayerGun : MonoBehaviour
     void Update()
     {
         Vector3 position = new Vector3();
-        transform.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
+
+        if (allowKMDebug)
+            transform.localRotation = cameraRig.rotation;
+        else
+            transform.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
+
+
 
         // Toggle Aiming
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        if (OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.Mouse1))
         {
             if (!aimTriggered)
                 aimTriggered = true;
@@ -52,8 +62,11 @@ public class PlayerGun : MonoBehaviour
         }
         else
         {
-            position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-            
+            if (allowKMDebug)
+                position = new Vector3(0.3f, -0.2f, 0.3f);
+            else
+                position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, position, ref velocity, smoothTime);
         }
         
@@ -61,7 +74,7 @@ public class PlayerGun : MonoBehaviour
         Ray ray = new Ray(position, transform.forward);
 
         // Shoot Bullet
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.Mouse0))
         {
             GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 2.0f), Quaternion.LookRotation(ray.direction));
             go.GetComponent<Rigidbody>().AddForce(bulletSpeed * 100.0f * ray.direction);
