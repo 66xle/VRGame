@@ -10,6 +10,7 @@ public class PlayerGun : MonoBehaviour
 
     [Header("Gun Values")]
     public float bulletSpeed = 5.0f;
+    public float bulletLife = 100.0f;
     public float smoothTime = 0.3f;
     public float aimDistance = 10.0f;
     public float aimYOffset = -0.05f;
@@ -62,11 +63,12 @@ public class PlayerGun : MonoBehaviour
         {
             GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 2.0f), Quaternion.LookRotation(ray.direction));
             go.GetComponent<Rigidbody>().AddForce(bulletSpeed * 100.0f * ray.direction);
+            go.GetComponent<BulletLife>().lifeLeft = 100.0f;
 
             bulletsFired.Add(go);
         }
 
-        // Remove Bullet if out of range
+        // Remove Bullet if out of range or lifeLeft is 0
         for (int i = 0; i < bulletsFired.Count; i++)
         {
             GameObject bullet = bulletsFired[i];
@@ -74,6 +76,11 @@ public class PlayerGun : MonoBehaviour
             float distance = Vector3.Distance(pointer.position, bullet.transform.position);
 
             if (distance >= 100.0f)
+            {
+                Destroy(bullet);
+                bulletsFired.Remove(bullet);
+            }
+            else if (bullet.GetComponent<BulletLife>().lifeLeft <= 0)
             {
                 Destroy(bullet);
                 bulletsFired.Remove(bullet);
