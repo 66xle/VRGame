@@ -9,16 +9,14 @@ public class GameManager : MonoBehaviour
     float roundTimerMinutes = 2;
     [SerializeField]
     float roundTimerSeconds = 30;
-
-    bool isRoundActive = false;
-
     [SerializeField]
     GameObject roundStarter;
-
     [SerializeField]
     GameObject timerTextObj;
+    [SerializeField]
+    GameObject[] targetArray;
 
-
+    bool isRoundActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +53,7 @@ public class GameManager : MonoBehaviour
         int convertedSeconds = (int)roundTimerSeconds;
         
         string timerText = roundTimerMinutes.ToString() + " : " + convertedSeconds.ToString();
+        timerText = string.Format("{0}:{1:00}", roundTimerMinutes, convertedSeconds);
 
         //Set UI text to our timer 
         timerTextObj.GetComponent<TextMeshProUGUI>().text = timerText;
