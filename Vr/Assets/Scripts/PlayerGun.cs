@@ -31,6 +31,7 @@ public class PlayerGun : MonoBehaviour
         Vector3 position = new Vector3();
         transform.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
 
+        // Toggle Aiming
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             if (!aimTriggered)
@@ -39,6 +40,7 @@ public class PlayerGun : MonoBehaviour
                 aimTriggered = false;
         }
 
+        // Set gun position
         if (aimTriggered)
         {
             position = cameraRig.TransformPoint(new Vector3(aimXOffset, aimYOffset, aimDistance));
@@ -52,8 +54,10 @@ public class PlayerGun : MonoBehaviour
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, position, ref velocity, smoothTime);
         }
         
+        // Bullet direction
         Ray ray = new Ray(position, transform.forward);
 
+        // Shoot Bullet
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
             GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 2.0f), Quaternion.LookRotation(ray.direction));
@@ -62,6 +66,7 @@ public class PlayerGun : MonoBehaviour
             bulletsFired.Add(go);
         }
 
+        // Remove Bullet if out of range
         for (int i = 0; i < bulletsFired.Count; i++)
         {
             GameObject bullet = bulletsFired[i];
