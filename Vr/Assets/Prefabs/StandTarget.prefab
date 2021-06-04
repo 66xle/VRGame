@@ -680,6 +680,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6709ed134dd80434ab1a79047aae5ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minMoveLength: -1
+  maxMoveLength: 1
+  moveIncrement: 0.05
+  targetMove: 1
 --- !u!82 &6091025466256994440
 AudioSource:
   m_ObjectHideFlags: 0
