@@ -28,6 +28,8 @@ public class PlayerGun : MonoBehaviour
         allowKMDebug = Application.isEditor;
 
         lr = GetComponent<LineRenderer>();
+        lr.SetPosition(0, new Vector3(0, 0, 0));
+        lr.SetPosition(1, new Vector3(0, 0, 0));
 
         bulletsFired = new List<GameObject>();
     }

@@ -9,6 +9,13 @@ public class TargetHit : MonoBehaviour
     float currentDuration;
 
 
+    Score score;
+
+    void Start()
+    {
+        score = GameObject.Find("Score").GetComponent<Score>();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Bullet")
@@ -18,12 +25,14 @@ public class TargetHit : MonoBehaviour
             go.GetComponentsInChildren<MeshRenderer>()[1].enabled = false;
 
 
-            go.GetComponentsInChildren<MeshCollider>()[0].enabled = false;
+            go.GetComponentsInChildren<BoxCollider>()[0].enabled = false;
 
             isTargetActive = false;
 
             currentDuration = 0.0f;
             maxDuration = Time.deltaTime + 2.0f;
+
+            score.AddScore();
         }
     }
 
@@ -35,7 +44,7 @@ public class TargetHit : MonoBehaviour
             go.GetComponentsInChildren<MeshRenderer>()[0].enabled = true;
             go.GetComponentsInChildren<MeshRenderer>()[1].enabled = true;
 
-            go.GetComponentsInChildren<MeshCollider>()[0].enabled = true;
+            go.GetComponentsInChildren<BoxCollider>()[0].enabled = true;
 
             isTargetActive = true;
         }
