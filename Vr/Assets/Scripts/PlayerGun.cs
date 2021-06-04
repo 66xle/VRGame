@@ -20,6 +20,8 @@ public class PlayerGun : MonoBehaviour
     Vector3 velocity = Vector3.zero;
     bool aimTriggered = false;
 
+    AudioSource gunSound;
+
     LineRenderer lr;
     List<GameObject> bulletsFired;
 
@@ -32,6 +34,8 @@ public class PlayerGun : MonoBehaviour
         lr.SetPosition(1, new Vector3(0, 0, 0));
 
         bulletsFired = new List<GameObject>();
+
+        gunSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -85,6 +89,8 @@ public class PlayerGun : MonoBehaviour
             go.GetComponent<BulletLife>().lifeLeft = 100.0f;
 
             bulletsFired.Add(go);
+
+            gunSound.Play();
         }
 
         // Remove Bullet if out of range or lifeLeft is 0

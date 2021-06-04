@@ -8,12 +8,15 @@ public class TargetHit : MonoBehaviour
     float maxDuration;
     float currentDuration;
 
+    AudioSource hitSound;
 
     Score score;
 
     void Start()
     {
         score = GameObject.Find("Score").GetComponent<Score>();
+
+        hitSound = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -33,6 +36,8 @@ public class TargetHit : MonoBehaviour
             maxDuration = Time.deltaTime + 2.0f;
 
             score.AddScore();
+
+            hitSound.Play();
         }
     }
 
