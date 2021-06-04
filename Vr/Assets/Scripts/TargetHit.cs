@@ -14,7 +14,7 @@ public class TargetHit : MonoBehaviour
 
     void Start()
     {
-        score = GameObject.Find("Score").GetComponent<Score>();
+        score = GameObject.Find("Score Text").GetComponent<Score>();
 
         hitSound = GetComponent<AudioSource>();
     }
