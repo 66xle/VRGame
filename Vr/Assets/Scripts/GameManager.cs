@@ -16,12 +16,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject[] targetArray;
 
-    bool isRoundActive = false;
+    [HideInInspector]
+    public bool isRoundActive = false; // made this public
 
     // Start is called before the first frame update
     void Start()
     {
-
+        // temp round start
+        isRoundActive = true;
     }
 
     // Update is called once per frame

@@ -6,6 +6,7 @@ public class PlayerGun : MonoBehaviour
 {
     public Transform cameraRig;
     public GameObject bullet;
+    public GameManager gameManager;
 
     bool allowKMDebug;
 
@@ -21,13 +22,14 @@ public class PlayerGun : MonoBehaviour
     bool aimTriggered = false;
 
     AudioSource gunSound;
+    
 
     LineRenderer lr;
     List<GameObject> bulletsFired;
 
     void Start()
     {
-        allowKMDebug = Application.isEditor;
+        allowKMDebug = Application.isEditor; // Check if game runs in unity
 
         lr = GetComponent<LineRenderer>();
         lr.SetPosition(0, new Vector3(0, 0, 0));
@@ -42,12 +44,11 @@ public class PlayerGun : MonoBehaviour
     {
         Vector3 position = new Vector3();
 
+        // Set rotation of camera
         if (allowKMDebug)
             transform.localRotation = cameraRig.rotation;
         else
             transform.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
-
-
 
         // Toggle Aiming
         if (OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.Mouse1))
@@ -58,7 +59,7 @@ public class PlayerGun : MonoBehaviour
                 aimTriggered = false;
         }
 
-
+        // Set position of controller
         if (allowKMDebug)
             position = new Vector3(0.3f, -0.2f, 0.3f);
         else
@@ -66,6 +67,7 @@ public class PlayerGun : MonoBehaviour
 
         transform.localPosition = Vector3.SmoothDamp(transform.localPosition, position, ref velocity, smoothTime);
         
+        // Laser pointer
         if (aimTriggered)
         {
             lr.SetPosition(0, position);
@@ -84,13 +86,19 @@ public class PlayerGun : MonoBehaviour
         // Shoot Bullet
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 0.5f), Quaternion.LookRotation(ray.direction));
-            go.GetComponent<Rigidbody>().AddForce(bulletSpeed * 100.0f * ray.direction);
-            go.GetComponent<BulletLife>().lifeLeft = 100.0f;
+            // If round is currently ongoing
+            if (gameManager.isRoundActive)
+            {
+                GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 0.5f), Quaternion.LookRotation(ray.direction));
+                go.GetComponent<Rigidbody>().AddForce(bulletSpeed * 100.0f * ray.direction);
+                go.GetComponent<BulletLife>().lifeLeft = 100.0f;
 
-            bulletsFired.Add(go);
+                // Add bullet to list
+                bulletsFired.Add(go);
 
-            gunSound.Play();
+                // Shoot sound
+                gunSound.Play();
+            }
         }
 
         // Remove Bullet if out of range or lifeLeft is 0
@@ -102,11 +110,13 @@ public class PlayerGun : MonoBehaviour
 
             if (distance >= 100.0f)
             {
+                // If bullet is far away delete
                 Destroy(bullet);
                 bulletsFired.Remove(bullet);
             }
             else if (bullet.GetComponent<BulletLife>().lifeLeft <= 0)
             {
+                // Time until bullet gets deleted
                 Destroy(bullet);
                 bulletsFired.Remove(bullet);
             }
