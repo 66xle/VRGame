@@ -23,7 +23,6 @@ public class PlayerGun : MonoBehaviour
 
     AudioSource gunSound;
     
-
     LineRenderer lr;
     List<GameObject> bulletsFired;
 

@@ -10,7 +10,9 @@ public class TargetHit : MonoBehaviour
 
     public float minMoveLength = -2.0f;
     public float maxMoveLength = 2.0f;
-    public float moveIncrement = 1.0f;
+
+    [Range(0.05f, 0.5f)]
+    public float moveSpeed = 0.05f;
 
     AudioSource hitSound;
 
@@ -24,8 +26,11 @@ public class TargetHit : MonoBehaviour
 
         hitSound = GetComponent<AudioSource>();
 
-        moveIncrement = Random.Range(-moveIncrement, moveIncrement);
+        // Random direction
+        if (Random.value <= 0.5f)
+            moveSpeed = -moveSpeed;
 
+        // Get max/min based on targets position
         maxMoveLength += transform.parent.position.x;
         minMoveLength += transform.parent.position.x;
     }
@@ -34,20 +39,24 @@ public class TargetHit : MonoBehaviour
     {
         if (other.tag == "Bullet")
         {
+            // If target is hit disable target
             GameObject go = transform.parent.gameObject;
             go.GetComponentsInChildren<MeshRenderer>()[0].enabled = false;
             go.GetComponentsInChildren<MeshRenderer>()[1].enabled = false;
 
-
+            // Disable collider
             go.GetComponentsInChildren<BoxCollider>()[0].enabled = false;
 
             isTargetActive = false;
 
+            // Duration being disabled
             currentDuration = 0.0f;
             maxDuration = Time.deltaTime + 2.0f;
 
+            // Score
             score.AddScore();
 
+            // Sound
             hitSound.Play();
         }
     }
@@ -56,6 +65,7 @@ public class TargetHit : MonoBehaviour
     {
         if (!isTargetActive && currentDuration > maxDuration)
         {
+            // Enable target after set amount of time
             GameObject go = transform.parent.gameObject;
             go.GetComponentsInChildren<MeshRenderer>()[0].enabled = true;
             go.GetComponentsInChildren<MeshRenderer>()[1].enabled = true;
@@ -71,14 +81,17 @@ public class TargetHit : MonoBehaviour
 
         if (targetMove)
         {
+            // Get target position
             Vector3 targetPosition = transform.parent.position;
-            targetPosition = new Vector3(targetPosition.x + moveIncrement, targetPosition.y, targetPosition.z);
+            targetPosition = new Vector3(targetPosition.x + moveSpeed, targetPosition.y, targetPosition.z);
 
+            // If target reaches end of length go opposite direction
             if (targetPosition.x > maxMoveLength)
-                moveIncrement = -moveIncrement;
+                moveSpeed = -moveSpeed;
             else if (targetPosition.x < minMoveLength)
-                moveIncrement = -moveIncrement;
+                moveSpeed = -moveSpeed;
 
+            // Set position
             transform.parent.position = targetPosition;
         }
     }
