@@ -28,31 +28,38 @@ public class TargetHit : MonoBehaviour
             moveSpeed = -moveSpeed;
 
         // Get max/min based on targets position
-        maxMoveLength += transform.parent.position.x;
-        minMoveLength += transform.parent.position.x;
+        maxMoveLength += transform.position.x;
+        minMoveLength += transform.position.x;
     }
 
     void OnTriggerEnter(Collider other)
-    {
-        // Handles starting rounds (peter) 
-        if (!gameManager.isRoundActive)
-        {
-            //start round
-            gameManager.isRoundActive = true;
-            gameManager.minutes = gameManager.roundTimerMinutes;
-            gameManager.seconds = gameManager.roundTimerSeconds;
+    {
+
+        // Handles starting rounds (peter) 
+
+        if (!gameManager.isRoundActive)
+
+        {
+
+            //start round
+
+            gameManager.isRoundActive = true;
+
+            gameManager.minutes = gameManager.roundTimerMinutes;
+
+            gameManager.seconds = gameManager.roundTimerSeconds;
+
         }
 
 
         if (other.tag == "Bullet")
         {
             // If target is hit disable target
-            GameObject go = transform.parent.gameObject;
-            go.GetComponentsInChildren<MeshRenderer>()[0].enabled = false;
-            go.GetComponentsInChildren<MeshRenderer>()[1].enabled = false;
+            GameObject go = transform.gameObject;
+            go.GetComponent<MeshRenderer>().enabled = false;
 
             // Disable collider
-            go.GetComponentsInChildren<BoxCollider>()[0].enabled = false;
+            go.GetComponent<BoxCollider>().enabled = false;
 
             isTargetActive = false;
 
@@ -76,11 +83,10 @@ public class TargetHit : MonoBehaviour
         if (!isTargetActive && currentDuration > maxDuration)
         {
             // Enable target after set amount of time
-            GameObject go = transform.parent.gameObject;
-            go.GetComponentsInChildren<MeshRenderer>()[0].enabled = true;
-            go.GetComponentsInChildren<MeshRenderer>()[1].enabled = true;
+            GameObject go = transform.gameObject;
+            go.GetComponent<MeshRenderer>().enabled = true;
 
-            go.GetComponentsInChildren<BoxCollider>()[0].enabled = true;
+            go.GetComponent<BoxCollider>().enabled = true;
 
             isTargetActive = true;
 
@@ -95,7 +101,7 @@ public class TargetHit : MonoBehaviour
         if (targetMove && isTargetActive)
         {
             // Get target position
-            Vector3 targetPosition = transform.parent.position;
+            Vector3 targetPosition = transform.position;
             targetPosition = new Vector3(targetPosition.x + moveSpeed, targetPosition.y, targetPosition.z);
 
             // If target reaches end of length go opposite direction
@@ -105,7 +111,7 @@ public class TargetHit : MonoBehaviour
                 moveSpeed = -moveSpeed;
 
             // Set position
-            transform.parent.position = targetPosition;
+            transform.position = targetPosition;
         }
     }
 }
