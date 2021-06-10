@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TargetHit : MonoBehaviour
 {
+    public GameManager gameManager; 
+    
     bool isTargetActive = true;
     float maxDuration;
     float currentDuration;
@@ -21,12 +23,21 @@ public class TargetHit : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // Handles starting rounds (peter) 
+        if (!gameManager.isRoundActive)
+        {
+            //start round
+            gameManager.isRoundActive = true;
+            gameManager.minutes = gameManager.roundTimerMinutes;
+            gameManager.seconds = gameManager.roundTimerSeconds;
+        }
+
+
         if (other.tag == "Bullet")
         {
             GameObject go = transform.parent.gameObject;
             go.GetComponentsInChildren<MeshRenderer>()[0].enabled = false;
             go.GetComponentsInChildren<MeshRenderer>()[1].enabled = false;
-
 
             go.GetComponentsInChildren<BoxCollider>()[0].enabled = false;
 
@@ -38,6 +49,9 @@ public class TargetHit : MonoBehaviour
             score.AddScore();
 
             hitSound.Play();
+
+            
+           
         }
     }
 
