@@ -92,7 +92,7 @@ public class PlayerGun : MonoBehaviour
             {
                 GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 0.5f), Quaternion.LookRotation(ray.direction));
                 go.GetComponent<Rigidbody>().AddForce(bulletSpeed * 100.0f * ray.direction);
-                go.GetComponent<BulletLife>().lifeLeft = 100.0f;
+                go.GetComponent<BulletLife>().lifeLeft = bulletLife;
 
                 // Add bullet to list
                 bulletsFired.Add(go);
