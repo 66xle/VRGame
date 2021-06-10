@@ -16,7 +16,8 @@ public class TargetHit : MonoBehaviour
 
     PlayerGun script;
 
-    AudioSource hitSound;
+    public AudioSource hitSound;
+    public AudioSource respawnSound;
     Score score;
 
     public bool targetMove = false;
@@ -25,8 +26,6 @@ public class TargetHit : MonoBehaviour
     {
         score = GameObject.Find("Score Text").GetComponent<Score>();
         script = GameObject.Find("Gun").GetComponent<PlayerGun>();
-
-        hitSound = GetComponent<AudioSource>();
 
         // Random direction
         if (Random.value <= 0.5f)
@@ -78,6 +77,8 @@ public class TargetHit : MonoBehaviour
             go.GetComponentsInChildren<BoxCollider>()[0].enabled = true;
 
             isTargetActive = true;
+
+            respawnSound.Play();
         }
         else
         {
