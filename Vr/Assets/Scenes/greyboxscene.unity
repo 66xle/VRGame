@@ -4920,7 +4920,7 @@ MonoBehaviour:
   bullet: {fileID: 6103891387859834971, guid: e13db4cb744d27945827dbe6b21afc9a, type: 3}
   gameManager: {fileID: 575123812}
   bulletSpeed: 13
-  bulletLife: 200
+  bulletLife: 250
   smoothTime: 0.2
   aimDistance: 0.3
   aimYOffset: -0.05
