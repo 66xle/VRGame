@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class TargetHit : MonoBehaviour
 {
-    public GameManager gameManager; 
     
     bool isTargetActive = true;
     float maxDuration;
     float currentDuration;
 
     AudioSource hitSound;
-
+    GameManager gameManager;
     Score score;
 
     void Start()
     {
         score = GameObject.Find("Score Text").GetComponent<Score>();
+        gameManager = GameObject.Find("Game Manger").GetComponent<GameManager>();
 
         hitSound = GetComponent<AudioSource>();
     }
