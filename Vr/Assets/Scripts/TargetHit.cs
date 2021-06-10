@@ -7,24 +7,21 @@ public class TargetHit : MonoBehaviour
     public float minMoveLength = -2.0f;
     public float maxMoveLength = 2.0f;
     [Range(0.05f, 0.5f)] public float moveSpeed = 0.05f;
-
     public bool targetMove = false;
-
     public AudioSource hitSound;
     public AudioSource respawnSound;
-
-
     PlayerGun script;
     Score score;
-
     bool isTargetActive = true;
     float maxDuration;
     float currentDuration;
 
+    GameManager gameManager;
     void Start()
     {
         score = GameObject.Find("Score Text").GetComponent<Score>();
         script = GameObject.Find("Gun").GetComponent<PlayerGun>();
+        gameManager = GameObject.Find("Game Manger").GetComponent<GameManager>();
 
         // Random direction
         if (Random.value <= 0.5f)
@@ -36,7 +33,17 @@ public class TargetHit : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {
+    {
+        // Handles starting rounds (peter) 
+        if (!gameManager.isRoundActive)
+        {
+            //start round
+            gameManager.isRoundActive = true;
+            gameManager.minutes = gameManager.roundTimerMinutes;
+            gameManager.seconds = gameManager.roundTimerSeconds;
+        }
+
+
         if (other.tag == "Bullet")
         {
             // If target is hit disable target

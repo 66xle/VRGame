@@ -3723,6 +3723,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   isRoundActive: 0
+  minutes: 0
+  seconds: 0
 --- !u!4 &575123813
 Transform:
   m_ObjectHideFlags: 0
