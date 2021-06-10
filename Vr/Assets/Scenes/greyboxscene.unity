@@ -1399,8 +1399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0421fe6940d4bd4419003be455901458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundTimerMinutes: 0
-  roundTimerSeconds: 30
+  roundTimerMinutes: 1
+  roundTimerSeconds: 60
   timerTextObj: {fileID: 1666451030}
   roundStarter: {fileID: 0}
   targetArray:
