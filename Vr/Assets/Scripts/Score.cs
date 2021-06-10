@@ -9,7 +9,7 @@ public class Score : MonoBehaviour
 
     [SerializeField]
     int increaseScore = 10;
-    int currentScore = 0;
+    public int currentScore = 0;
     int highScore = 0;
 
     TextMeshProUGUI scoreText;

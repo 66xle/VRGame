@@ -10,11 +10,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public float roundTimerSeconds = 30;
     [SerializeField]
-    GameObject roundStarter;
-    [SerializeField]
     GameObject timerTextObj;
-    [SerializeField]
-    GameObject[] targetArray;
+
+    [HideInInspector]
+    public GameObject roundStarter;
+    public GameObject[] targetArray;
+
+    public AudioSource gameOver;
+    bool endGame = false;
+
+    // Game Over Delay
+    float currentDuration;
+    float maxDuration = 100.0f;
 
     //[HideInInspector]
     public bool isRoundActive; // made this public
@@ -24,6 +31,12 @@ public class GameManager : MonoBehaviour
     public float minutes;
     [HideInInspector]
     public float seconds;
+
+    void Awake()
+    {
+        // Choose random target to be round starter
+        roundStarter = targetArray[Random.Range(0, targetArray.Length)];
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +55,22 @@ public class GameManager : MonoBehaviour
             //Timer stuff
             if (minutes <= 0 && seconds <= 0)
             {
+                endGame = true;
+
+                currentDuration = 0.0f;
+                maxDuration = Time.deltaTime + 3.0f;
+
+
                 //round finished
                 isRoundActive = false;
+
+                // Game over sound
+                gameOver.Play();
+
+                foreach (GameObject target in targetArray)
+                {
+                    target.GetComponent<TargetHit>().DisableTarget();
+                }
             }
             else
             {
@@ -69,8 +96,20 @@ public class GameManager : MonoBehaviour
             //Set UI text to our timer 
             timerTextObj.GetComponent<TextMeshProUGUI>().text = timerText;
         }
-        
 
 
+        if (endGame && currentDuration > maxDuration)
+        {
+            endGame = false;
+
+            roundStarter = targetArray[Random.Range(0, targetArray.Length)];
+            roundStarter.GetComponent<TargetHit>().EnableTarget();
+        }
+        else if (endGame)
+        {
+            currentDuration += Time.deltaTime;
+        }
     }
+
+    
 }

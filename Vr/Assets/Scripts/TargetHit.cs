@@ -4,19 +4,35 @@ using UnityEngine;
 
 public class TargetHit : MonoBehaviour
 {
+    [Header("Target Moving Setting")]
     public float minMoveLength = -2.0f;
     public float maxMoveLength = 2.0f;
     [Range(0.05f, 0.5f)] public float moveSpeed = 0.05f;
     public bool targetMove = false;
+
+    [Header("Sounds")]
     public AudioSource hitSound;
     public AudioSource respawnSound;
-    PlayerGun script;
-    Score score;
-    bool isTargetActive = true;
-    float maxDuration;
-    float currentDuration;
+    public AudioSource gameStart;
 
+    [Header("Other")]
+    public float respawnTime = 2.0f;
+
+    // Classes
+    PlayerGun script;
     GameManager gameManager;
+    Score score;
+    
+
+    // Respawn Time
+    float maxDuration = 100.0f;
+    float currentDuration;
+    bool isTargetActive = true;
+
+    float maxGameStartDuration = 100.0f;
+    float currentGameStartDuration;
+    bool startGame = false;
+
     void Start()
     {
         score = GameObject.Find("Score Text").GetComponent<Score>();
@@ -30,42 +46,66 @@ public class TargetHit : MonoBehaviour
         // Get max/min based on targets position
         maxMoveLength += transform.position.x;
         minMoveLength += transform.position.x;
+
+        // If target is not round starter and game is not active
+        if (gameManager.roundStarter != transform.gameObject && !gameManager.isRoundActive)
+        {
+            // Disable Target
+            DisableTarget();
+        }
+    }
+
+    public void DisableTarget()
+    {
+        // If target is hit disable target
+        GameObject go = transform.gameObject;
+        go.GetComponent<MeshRenderer>().enabled = false;
+
+        // Disable collider
+        go.GetComponent<BoxCollider>().enabled = false;
+
+        isTargetActive = false;
+    }
+
+    public void EnableTarget()
+    {
+        // Enable target after set amount of time
+        GameObject go = transform.gameObject;
+        go.GetComponent<MeshRenderer>().enabled = true;
+        go.GetComponent<MeshRenderer>().enabled = true;
+
+        go.GetComponent<BoxCollider>().enabled = true;
+
+        isTargetActive = true;
     }
 
     void OnTriggerEnter(Collider other)
     {
-
-        // Handles starting rounds (peter) 
-
+        // Handles starting rounds (peter)
         if (!gameManager.isRoundActive)
-
         {
+            startGame = true;
+            gameStart.Play();
 
-            //start round
+            DisableTarget();
 
-            gameManager.isRoundActive = true;
+            // Delay spawn targets
+            currentGameStartDuration = 0.0f;
+            maxGameStartDuration = Time.deltaTime + 3.0f;
 
-            gameManager.minutes = gameManager.roundTimerMinutes;
+            // Remove bullet
+            script.RemoveBulletFromList(other.gameObject);
 
-            gameManager.seconds = gameManager.roundTimerSeconds;
-
+            // Reset Score
+            score.currentScore = 0;
         }
-
-
-        if (other.tag == "Bullet")
+        else if (other.tag == "Bullet")
         {
-            // If target is hit disable target
-            GameObject go = transform.gameObject;
-            go.GetComponent<MeshRenderer>().enabled = false;
-
-            // Disable collider
-            go.GetComponent<BoxCollider>().enabled = false;
-
-            isTargetActive = false;
+            DisableTarget();
 
             // Duration being disabled
             currentDuration = 0.0f;
-            maxDuration = Time.deltaTime + 2.0f;
+            maxDuration = Time.deltaTime + respawnTime;
 
             // Score
             score.AddScore();
@@ -80,15 +120,28 @@ public class TargetHit : MonoBehaviour
 
     void Update()
     {
-        if (!isTargetActive && currentDuration > maxDuration)
+        if (startGame && currentGameStartDuration > maxGameStartDuration)
         {
-            // Enable target after set amount of time
-            GameObject go = transform.gameObject;
-            go.GetComponent<MeshRenderer>().enabled = true;
+            startGame = false;
 
-            go.GetComponent<BoxCollider>().enabled = true;
+            //start round
+            gameManager.isRoundActive = true;
+            gameManager.minutes = gameManager.roundTimerMinutes;
+            gameManager.seconds = gameManager.roundTimerSeconds;
 
-            isTargetActive = true;
+            foreach (GameObject target in gameManager.targetArray)
+            {
+                target.GetComponent<TargetHit>().EnableTarget();
+            }
+        }
+        else if (startGame)
+        {
+            currentGameStartDuration += Time.deltaTime;
+        }
+
+        if (!isTargetActive && gameManager.isRoundActive && currentDuration > maxDuration)
+        {
+            EnableTarget();
 
             // Play sound
             respawnSound.Play();
