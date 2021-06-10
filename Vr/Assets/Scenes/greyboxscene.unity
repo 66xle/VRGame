@@ -4917,7 +4917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRig: {fileID: 201614191}
-  bullet: {fileID: 6103891387859834971, guid: e13db4cb744d27945827dbe6b21afc9a, type: 3}
+  bullet: {fileID: 4598907007518572809, guid: 6409dbcf8febdbe4abb818a9866f6513, type: 3}
   gameManager: {fileID: 575123812}
   bulletSpeed: 13
   bulletLife: 250
