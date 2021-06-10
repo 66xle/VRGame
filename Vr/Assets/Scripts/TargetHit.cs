@@ -21,7 +21,7 @@ public class TargetHit : MonoBehaviour
     {
         score = GameObject.Find("Score Text").GetComponent<Score>();
         script = GameObject.Find("Gun").GetComponent<PlayerGun>();
-        gameManager = GameObject.Find("Game Manger").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         // Random direction
         if (Random.value <= 0.5f)
