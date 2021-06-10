@@ -30,6 +30,7 @@ public class PlayerGun : MonoBehaviour
     {
         allowKMDebug = Application.isEditor; // Check if game runs in unity
 
+        // Line distance 0
         lr = GetComponent<LineRenderer>();
         lr.SetPosition(0, new Vector3(0, 0, 0));
         lr.SetPosition(1, new Vector3(0, 0, 0));
@@ -64,9 +65,10 @@ public class PlayerGun : MonoBehaviour
         else
             position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
 
+        // Move controller towards position
         transform.localPosition = Vector3.SmoothDamp(transform.localPosition, position, ref velocity, smoothTime);
         
-        // Laser pointer
+        // Enable/Disable laser pointer
         if (aimTriggered)
         {
             lr.SetPosition(0, position);

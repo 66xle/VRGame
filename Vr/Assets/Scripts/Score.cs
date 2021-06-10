@@ -5,18 +5,16 @@ using TMPro;
 
 public class Score : MonoBehaviour
 {
+    public GameManager gameManager;
+
     [SerializeField]
     int increaseScore = 10;
-
     int currentScore = 0;
     int highScore = 0;
-
-    public GameManager gameManager;
 
     TextMeshProUGUI scoreText;
     TextMeshProUGUI highscoreText;
 
-    // Start is called before the first frame update
     void Start()
     {
         scoreText = GetComponentsInChildren<TextMeshProUGUI>()[0];
@@ -25,13 +23,16 @@ public class Score : MonoBehaviour
 
     public void AddScore()
     {
+        // Increase score
         currentScore += increaseScore;
         scoreText.text = "Score: " + currentScore.ToString();
     }
+
     void Update()
-    {
+    {        
         if (!gameManager.isRoundActive)
         {
+            // If round ends check if highscore
             if (currentScore > highScore)
             {
                 highScore = currentScore;

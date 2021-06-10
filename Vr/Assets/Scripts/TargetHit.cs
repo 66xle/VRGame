@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class TargetHit : MonoBehaviour
 {
-    bool isTargetActive = true;
-    float maxDuration;
-    float currentDuration;
-
     public float minMoveLength = -2.0f;
     public float maxMoveLength = 2.0f;
+    [Range(0.05f, 0.5f)] public float moveSpeed = 0.05f;
 
-    [Range(0.05f, 0.5f)]
-    public float moveSpeed = 0.05f;
-
-    PlayerGun script;
+    public bool targetMove = false;
 
     public AudioSource hitSound;
     public AudioSource respawnSound;
+
+
+    PlayerGun script;
     Score score;
 
-    public bool targetMove = false;
+    bool isTargetActive = true;
+    float maxDuration;
+    float currentDuration;
 
     void Start()
     {
@@ -78,6 +77,7 @@ public class TargetHit : MonoBehaviour
 
             isTargetActive = true;
 
+            // Play sound
             respawnSound.Play();
         }
         else
