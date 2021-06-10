@@ -121,4 +121,9 @@ public class PlayerGun : MonoBehaviour
             }
         }
     }
+
+    public void RemoveBulletFromList(GameObject bullet)
+    {
+        bulletsFired.Remove(bullet);
+    }
 }

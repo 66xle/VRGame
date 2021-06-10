@@ -14,8 +14,9 @@ public class TargetHit : MonoBehaviour
     [Range(0.05f, 0.5f)]
     public float moveSpeed = 0.05f;
 
-    AudioSource hitSound;
+    PlayerGun script;
 
+    AudioSource hitSound;
     Score score;
 
     public bool targetMove = false;
@@ -23,6 +24,7 @@ public class TargetHit : MonoBehaviour
     void Start()
     {
         score = GameObject.Find("Score Text").GetComponent<Score>();
+        script = GameObject.Find("Gun").GetComponent<PlayerGun>();
 
         hitSound = GetComponent<AudioSource>();
 
@@ -58,6 +60,9 @@ public class TargetHit : MonoBehaviour
 
             // Sound
             hitSound.Play();
+
+            // Remove bullet
+            script.RemoveBulletFromList(other.gameObject);
         }
     }
 
