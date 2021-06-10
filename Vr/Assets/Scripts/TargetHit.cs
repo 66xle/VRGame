@@ -84,7 +84,7 @@ public class TargetHit : MonoBehaviour
             currentDuration += Time.deltaTime;
         }
 
-        if (targetMove)
+        if (targetMove && isTargetActive)
         {
             // Get target position
             Vector3 targetPosition = transform.parent.position;
