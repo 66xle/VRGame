@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -2007697226122133187}
   - component: {fileID: 1806025570875589381}
   m_Layer: 0
-  m_Name: testbullet
+  m_Name: DartFix
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +74,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.065556794, y: 0.06566107, z: 0.24313268}
+  m_Center: {x: -0.0011219531, y: 0.0022807717, z: 0.015103832}
 --- !u!1001 &6729673606947573851
 PrefabInstance:
   m_ObjectHideFlags: 0
