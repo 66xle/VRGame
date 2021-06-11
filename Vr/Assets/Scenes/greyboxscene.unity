@@ -1240,6 +1240,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 1209700401}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1559,6 +1564,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 1172653738}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1651,8 +1661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0421fe6940d4bd4419003be455901458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundTimerMinutes: 0
-  roundTimerSeconds: 60
+  roundTimerMinutes: 1
+  roundTimerSeconds: 30
   timerTextObj: {fileID: 1666451030}
   roundStarter: {fileID: 0}
   targetArray:
@@ -1667,7 +1677,8 @@ MonoBehaviour:
   - {fileID: 1209700399}
   - {fileID: 246755249}
   shootTargetText: {fileID: 1457683953}
-  gameOver: {fileID: 575123814}
+  gameOverSound: {fileID: 0}
+  endGameDelay: 0
   isRoundActive: 0
   minutes: 0
   seconds: 0
@@ -1903,6 +1914,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 629138547}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2010,6 +2026,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 246755251}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2249,6 +2270,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 1652102407}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2424,6 +2450,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 1043129763}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3547,6 +3578,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 1303552525}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4201,7 +4237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 575123812}
-  increaseScore: 10
   currentScore: 0
 --- !u!222 &1486083551
 CanvasRenderer:
@@ -4888,6 +4923,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 1667954876}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5157,6 +5197,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 506321858}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5583,6 +5628,11 @@ PrefabInstance:
       propertyPath: minMoveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 977434027869879519, guid: d4f26736c75b2e546936e6ea932acfcb,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 970536838}
     - target: {fileID: 4970052748427499429, guid: d4f26736c75b2e546936e6ea932acfcb,
         type: 3}
       propertyPath: m_LocalPosition.x
