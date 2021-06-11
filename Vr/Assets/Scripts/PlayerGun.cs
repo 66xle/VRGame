@@ -26,6 +26,8 @@ public class PlayerGun : MonoBehaviour
     LineRenderer lr;
     List<GameObject> bulletsFired;
 
+    public GameObject inputInstruction;
+
     void Start()
     {
         allowKMDebug = Application.isEditor; // Check if game runs in unity
@@ -42,6 +44,11 @@ public class PlayerGun : MonoBehaviour
 
     void Update()
     {
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            inputInstruction.SetActive(false);
+        }
+
         Vector3 position = new Vector3();
 
         // Set rotation of camera

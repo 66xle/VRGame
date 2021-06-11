@@ -8,8 +8,8 @@ public class TargetHit : MonoBehaviour
     public float minMoveLength = -2.0f;
     public float maxMoveLength = 2.0f;
     [HideInInspector] public bool targetMove = false;
-    [Range(0.05f, 0.08f)] public float minMoveSpeed = 0.05f;
-    [Range(0.05f, 0.08f)] public float maxMoveSpeed = 0.8f;
+    [Range(0.01f, 0.05f)] public float minMoveSpeed = 0.03f;
+    [Range(0.01f, 0.05f)] public float maxMoveSpeed = 0.05f;
 
     float moveSpeed = 0;
 
