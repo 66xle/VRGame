@@ -73,7 +73,8 @@ public class TargetHit : MonoBehaviour
         go.GetComponent<MeshRenderer>().enabled = false;
 
         // Disable collider
-        go.GetComponent<BoxCollider>().enabled = false;
+        go.GetComponents<BoxCollider>()[0].enabled = false;
+        go.GetComponents<BoxCollider>()[1].enabled = false;
 
         isTargetActive = false;
     }
@@ -83,9 +84,9 @@ public class TargetHit : MonoBehaviour
         // Enable target after set amount of time
         GameObject go = transform.gameObject;
         go.GetComponent<MeshRenderer>().enabled = true;
-        go.GetComponent<MeshRenderer>().enabled = true;
 
-        go.GetComponent<BoxCollider>().enabled = true;
+        go.GetComponents<BoxCollider>()[0].enabled = true;
+        go.GetComponents<BoxCollider>()[1].enabled = true;
 
         isTargetActive = true;
     }
