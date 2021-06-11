@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2397014485561030019}
   - component: {fileID: 7112184769074851117}
   - component: {fileID: 2672604860638935538}
+  - component: {fileID: 8044938390660282774}
   m_Layer: 0
   m_Name: Target_Geo
   m_TagString: Untagged
@@ -95,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 2, z: 0.35}
-  m_Center: {x: 0, y: 1.0958965, z: 0}
+  m_Size: {x: 1.2, y: 1.4857142, z: 0.35}
+  m_Center: {x: 0, y: 0.8387536, z: 0}
 --- !u!114 &977434027869879519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,3 +406,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &8044938390660282774
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8260293844259530166}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.66749287, z: 0.16496608}
+  m_Center: {x: -0.00000029802322, y: 1.8451743, z: 0.028223738}
