@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     float currentDuration;
     float maxDuration = 100.0f;
 
-    //[HideInInspector]
+    [HideInInspector]
     public bool isRoundActive; // made this public
 
     //Extra variables for the timer to allow dynamic modification
