@@ -112,12 +112,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minMoveLength: -1
   maxMoveLength: 1
-  moveSpeed: 0.05
   targetMove: 0
+  minMoveSpeed: 0.05
+  maxMoveSpeed: 0.06
   hitSound: {fileID: 2397014485561030019}
   respawnSound: {fileID: 2397014485561030019}
   gameStart: {fileID: 2672604860638935538}
   respawnTime: 2
+  originalPosition: {x: 0, y: 0, z: 0}
 --- !u!82 &2397014485561030019
 AudioSource:
   m_ObjectHideFlags: 0
