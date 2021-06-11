@@ -17,11 +17,11 @@ public class GameManager : MonoBehaviour
     public GameObject[] targetArray;
     public GameObject shootTargetText;
 
-    public AudioSource gameOver;
+    public AudioSource gameOverSound;
 
     [HideInInspector]
-    public bool endGame = false;
-    bool targetMove = false;
+    public bool endGameDelay = false;
+    bool isTargetMoving = false;
 
     // Game Over Delay
     float currentDuration;
@@ -60,16 +60,16 @@ public class GameManager : MonoBehaviour
             if (minutes <= 0 && seconds <= 0)
             {
                 // Delay
-                endGame = true;
+                endGameDelay = true;
                 currentDuration = 0.0f;
                 maxDuration = Time.deltaTime + 3.0f;
 
                 //round finished
                 isRoundActive = false;
-                targetMove = false;
+                isTargetMoving = false;
 
                 // Game over sound
-                gameOver.Play();
+                gameOverSound.Play();
 
                 foreach (GameObject target in targetArray)
                 {
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
                     hit.transform.position = hit.originalPosition;
                 }
             }
-            else if (!targetMove && minutes < 1)
+            else if (!isTargetMoving && minutes < 1)
             {
                 // Targets moves when under 1 min
           
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
                     target.GetComponent<TargetHit>().targetMove = true;
                 }
 
-                targetMove = true;
+                isTargetMoving = true;
             }
             else
             {
@@ -117,21 +117,23 @@ public class GameManager : MonoBehaviour
             timerTextObj.GetComponent<TextMeshProUGUI>().text = timerText;
         }
 
-
-        // Delay Timer
-        if (endGame && currentDuration > maxDuration)
+        #region End Game Sound Delay
+        
+        if (endGameDelay && currentDuration > maxDuration)
         {
-            endGame = false;
+            endGameDelay = false;
 
             roundStarter = targetArray[Random.Range(0, targetArray.Length)];
             roundStarter.GetComponent<TargetHit>().EnableTarget();
             shootTargetText.SetActive(true);
         }
-        else if (endGame)
+        else if (endGameDelay)
         {
             currentDuration += Time.deltaTime;
         }
+
+        #endregion
     }
 
-    
+
 }

@@ -7,50 +7,57 @@ public class TargetHit : MonoBehaviour
     [Header("Target Moving Setting")]
     public float minMoveLength = -2.0f;
     public float maxMoveLength = 2.0f;
-    [HideInInspector] public bool targetMove = false;
     [Range(0.01f, 0.05f)] public float minMoveSpeed = 0.03f;
     [Range(0.01f, 0.05f)] public float maxMoveSpeed = 0.05f;
-
-    float moveSpeed = 0;
 
     [Header("Sounds")]
     public AudioSource hitSound;
     public AudioSource respawnSound;
-    public AudioSource gameStart;
+    public AudioSource gameStartSound;
 
     [Header("Other")]
     public float respawnTime = 2.0f;
+
+    #region Internal Variables
+
+    // Target Moving
+    [HideInInspector] public bool targetMove = false;
+    float moveSpeed = 0;
+
+    // Other
+    [HideInInspector] public Vector3 originalPosition;
+
+    // Respawn Time
+    float maxRespawnTime = 100.0f;
+    float currentRespawnTime;
+    bool isTargetActive = true;
+
+    // Game Start Delay
+    float maxGameStartDuration = 100.0f;
+    float currentGameStartDuration;
+    [HideInInspector] public bool startGameDelay = false;
 
     // Classes
     PlayerGun script;
     GameManager gameManager;
     Score score;
 
-    [HideInInspector]
-    public Vector3 originalPosition;
-
-
-    // Respawn Time
-    float maxDuration = 100.0f;
-    float currentDuration;
-    bool isTargetActive = true;
-
-    // Game Start Delay
-    float maxGameStartDuration = 100.0f;
-    float currentGameStartDuration;
-    [HideInInspector] public bool startGame = false;
+    #endregion
 
     void Start()
     {
+        // Set Values
         originalPosition = transform.position;
+        moveSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
 
+        // Get References
         score = GameObject.Find("Score Text").GetComponent<Score>();
         script = GameObject.Find("Gun").GetComponent<PlayerGun>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        moveSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
+        #region Target stuff
 
-        // Random direction
+        // Random target direction
         if (Random.value <= 0.5f)
             moveSpeed = -moveSpeed;
 
@@ -64,6 +71,70 @@ public class TargetHit : MonoBehaviour
             // Disable Target
             DisableTarget();
         }
+
+        #endregion
+    }
+
+    void Update()
+    {
+        #region Game Start Sound Delay
+
+        if (startGameDelay && currentGameStartDuration > maxGameStartDuration)
+        {
+            startGameDelay = false;
+
+            //start round
+            gameManager.isRoundActive = true;
+            gameManager.minutes = gameManager.roundTimerMinutes;
+            gameManager.seconds = gameManager.roundTimerSeconds;
+
+            foreach (GameObject target in gameManager.targetArray)
+            {
+                target.GetComponent<TargetHit>().EnableTarget();
+            }
+        }
+        else if (startGameDelay)
+        {
+            currentGameStartDuration += Time.deltaTime;
+        }
+
+        #endregion
+
+        #region Respawn
+
+        if (!isTargetActive && gameManager.isRoundActive && currentRespawnTime > maxRespawnTime)
+        {
+            EnableTarget();
+
+            // Play sound
+            respawnSound.Play();
+        }
+        else
+        {
+            currentRespawnTime += Time.deltaTime;
+        }
+
+        #endregion
+
+        #region Moving Target
+
+        if (targetMove && isTargetActive)
+        {
+            // Get target position
+            Vector3 targetPosition = transform.position;
+            targetPosition = new Vector3(targetPosition.x + moveSpeed, targetPosition.y, targetPosition.z);
+
+            // If target reaches end of length go opposite direction
+            if (targetPosition.x > maxMoveLength)
+                moveSpeed = -moveSpeed;
+            else if (targetPosition.x < minMoveLength)
+                moveSpeed = -moveSpeed;
+
+            // Set position
+            transform.position = targetPosition;
+        }
+
+        #endregion
     }
 
     public void DisableTarget()
@@ -93,11 +164,11 @@ public class TargetHit : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Handles starting rounds (peter)
+        // Player shoots starting round target
         if (!gameManager.isRoundActive)
         {
-            startGame = true;
-            gameStart.Play();
+            startGameDelay = true;
+            gameStartSound.Play();
 
             DisableTarget();
 
@@ -111,15 +182,16 @@ public class TargetHit : MonoBehaviour
             // Reset Score
             score.currentScore = 0;
 
+            // Disable UI
             gameManager.shootTargetText.SetActive(false);
         }
         else if (other.tag == "Bullet")
         {
             DisableTarget();
 
-            // Duration being disabled
-            currentDuration = 0.0f;
-            maxDuration = Time.deltaTime + respawnTime;
+            // Respawn Time
+            currentRespawnTime = 0.0f;
+            maxRespawnTime = Time.deltaTime + respawnTime;
 
             // Score
             score.AddScore();
@@ -132,53 +204,5 @@ public class TargetHit : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (startGame && currentGameStartDuration > maxGameStartDuration)
-        {
-            startGame = false;
-
-            //start round
-            gameManager.isRoundActive = true;
-            gameManager.minutes = gameManager.roundTimerMinutes;
-            gameManager.seconds = gameManager.roundTimerSeconds;
-
-            foreach (GameObject target in gameManager.targetArray)
-            {
-                target.GetComponent<TargetHit>().EnableTarget();
-            }
-        }
-        else if (startGame)
-        {
-            currentGameStartDuration += Time.deltaTime;
-        }
-
-        if (!isTargetActive && gameManager.isRoundActive && currentDuration > maxDuration)
-        {
-            EnableTarget();
-
-            // Play sound
-            respawnSound.Play();
-        }
-        else
-        {
-            currentDuration += Time.deltaTime;
-        }
-
-        if (targetMove && isTargetActive)
-        {
-            // Get target position
-            Vector3 targetPosition = transform.position;
-            targetPosition = new Vector3(targetPosition.x + moveSpeed, targetPosition.y, targetPosition.z);
-
-            // If target reaches end of length go opposite direction
-            if (targetPosition.x > maxMoveLength)
-                moveSpeed = -moveSpeed;
-            else if (targetPosition.x < minMoveLength)
-                moveSpeed = -moveSpeed;
-
-            // Set position
-            transform.position = targetPosition;
-        }
-    }
+    
 }

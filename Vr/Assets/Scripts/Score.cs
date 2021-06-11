@@ -7,16 +7,21 @@ public class Score : MonoBehaviour
 {
     public GameManager gameManager;
 
-    [SerializeField]
+    #region Internal Variables
+
+    [SerializeField] public int currentScore = 0;
     int increaseScore = 10;
-    public int currentScore = 0;
     int highScore = 0;
 
+    // Classes
     TextMeshProUGUI scoreText;
     TextMeshProUGUI highscoreText;
 
+    #endregion
+
     void Start()
     {
+        // Get References
         scoreText = GetComponentsInChildren<TextMeshProUGUI>()[0];
         highscoreText = GetComponentsInChildren<TextMeshProUGUI>()[1];
     }
@@ -29,15 +34,12 @@ public class Score : MonoBehaviour
     }
 
     void Update()
-    {        
-        if (!gameManager.isRoundActive)
+    {
+        // If round ends check if score > highscore
+        if (!gameManager.isRoundActive && currentScore > highScore)
         {
-            // If round ends check if highscore
-            if (currentScore > highScore)
-            {
-                highScore = currentScore;
-                highscoreText.text = "Highscore: " + highScore.ToString();
-            }
+            highScore = currentScore;
+            highscoreText.text = "Highscore: " + highScore.ToString();
         }
     }
 }

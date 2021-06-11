@@ -8,8 +8,6 @@ public class PlayerGun : MonoBehaviour
     public GameObject bullet;
     public GameManager gameManager;
 
-    bool allowKMDebug;
-
     [Header("Gun Values")]
     public float bulletSpeed = 5.0f;
     public float bulletLife = 100.0f;
@@ -18,84 +16,126 @@ public class PlayerGun : MonoBehaviour
     public float aimYOffset = -0.05f;
     public float aimXOffset = 0.0f;
 
-    Vector3 velocity = Vector3.zero;
-    bool aimTriggered = false;
+    #region Internal variables
 
-    AudioSource gunSound;
-    
+    bool isAimTrigged = false;
+    bool allowKMDebug;
+
     LineRenderer lr;
-    List<GameObject> bulletsFired;
+    Vector3 velocity = Vector3.zero;
 
+    // Sound
+    AudioSource gunSound;
+
+    List<GameObject> bulletsFired;
     GameObject inputInstruction;
+    Vector3 controllerPos;
+    #endregion
 
     void Start()
     {
-        allowKMDebug = Application.isEditor; // Check if game runs in unity
-        inputInstruction = GameObject.Find("Input Instruction");
+        // Check if game is running in unity
+        allowKMDebug = Application.isEditor; 
 
-        // Line distance 0
+        // Set line distance to 0
         lr = GetComponent<LineRenderer>();
         lr.SetPosition(0, new Vector3(0, 0, 0));
         lr.SetPosition(1, new Vector3(0, 0, 0));
 
-        bulletsFired = new List<GameObject>();
-
+        // Get references
+        inputInstruction = GameObject.Find("Input Instruction");
         gunSound = GetComponent<AudioSource>();
+
+        bulletsFired = new List<GameObject>();
     }
 
     void Update()
     {
+        SetVRRotations();
+        Aiming();
+        Shoot();
+
+        #region Remove/Show UI
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
         {
             inputInstruction.SetActive(false);
 
-            if (!gameManager.roundStarter.GetComponent<TargetHit>().startGame && !gameManager.endGame && !gameManager.isRoundActive)
+            if (!gameManager.roundStarter.GetComponent<TargetHit>().startGameDelay && !gameManager.endGameDelay && !gameManager.isRoundActive)
             {
                 gameManager.shootTargetText.SetActive(true);
             }
         }
+        #endregion
 
-        Vector3 position = new Vector3();
+        #region Remove Bullet
+        // Remove Bullet if out of range or lifeLeft is 0
+        for (int i = 0; i < bulletsFired.Count; i++)
+        {
+            GameObject bullet = bulletsFired[i];
 
+            float distance = Vector3.Distance(controllerPos, bullet.transform.position);
+
+            if (distance >= 100.0f)
+            {
+                // If bullet is far away delete
+                Destroy(bullet);
+                bulletsFired.Remove(bullet);
+            }
+            else if (bullet.GetComponent<BulletLife>().lifeLeft <= 0)
+            {
+                // Time until bullet gets deleted
+                Destroy(bullet);
+                bulletsFired.Remove(bullet);
+            }
+        }
+        #endregion
+    }
+    void SetVRRotations()
+    {
         // Set rotation of camera
         if (allowKMDebug)
             transform.localRotation = cameraRig.rotation;
         else
             transform.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
 
+        // Set position of controller
+        if (allowKMDebug)
+            controllerPos = new Vector3(0.3f, -0.2f, 0.3f);
+        else
+            controllerPos = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+
+        // Move controller towards position
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, controllerPos, ref velocity, smoothTime);
+    }
+
+    void Aiming()
+    {
         // Toggle Aiming
         if (OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.Mouse1))
         {
-            if (!aimTriggered)
-                aimTriggered = true;
+            if (!isAimTrigged)
+                isAimTrigged = true;
             else
-                aimTriggered = false;
+                isAimTrigged = false;
         }
 
-        // Set position of controller
-        if (allowKMDebug)
-            position = new Vector3(0.3f, -0.2f, 0.3f);
-        else
-            position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-
-        // Move controller towards position
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, position, ref velocity, smoothTime);
-        
-        // Enable/Disable laser pointer
-        if (aimTriggered)
+        // Update Laser
+        if (!isAimTrigged)
         {
-            lr.SetPosition(0, position);
+            lr.SetPosition(0, controllerPos);
             lr.SetPosition(1, transform.forward * 5000);
         }
         else
         {
-            lr.SetPosition(0, position);
-            lr.SetPosition(1, position);
+            lr.SetPosition(0, controllerPos);
+            lr.SetPosition(1, controllerPos);
         }
+    }
 
-
+    void Shoot()
+    {
         // Bullet direction
-        Ray ray = new Ray(position, transform.forward);
+        Ray ray = new Ray(controllerPos, transform.forward);
 
         // Shoot Bullet
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.Mouse0))
@@ -110,27 +150,6 @@ public class PlayerGun : MonoBehaviour
 
             // Shoot sound
             gunSound.Play();
-        }
-
-        // Remove Bullet if out of range or lifeLeft is 0
-        for (int i = 0; i < bulletsFired.Count; i++)
-        {
-            GameObject bullet = bulletsFired[i];
-
-            float distance = Vector3.Distance(position, bullet.transform.position);
-
-            if (distance >= 100.0f)
-            {
-                // If bullet is far away delete
-                Destroy(bullet);
-                bulletsFired.Remove(bullet);
-            }
-            else if (bullet.GetComponent<BulletLife>().lifeLeft <= 0)
-            {
-                // Time until bullet gets deleted
-                Destroy(bullet);
-                bulletsFired.Remove(bullet);
-            }
         }
     }
 
