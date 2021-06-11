@@ -7,8 +7,11 @@ public class TargetHit : MonoBehaviour
     [Header("Target Moving Setting")]
     public float minMoveLength = -2.0f;
     public float maxMoveLength = 2.0f;
-    [Range(0.05f, 0.5f)] public float moveSpeed = 0.05f;
-    public bool targetMove = false;
+    [HideInInspector] public bool targetMove = false;
+    [Range(0.05f, 0.08f)] public float minMoveSpeed = 0.05f;
+    [Range(0.05f, 0.08f)] public float maxMoveSpeed = 0.8f;
+
+    float moveSpeed = 0;
 
     [Header("Sounds")]
     public AudioSource hitSound;
@@ -22,22 +25,30 @@ public class TargetHit : MonoBehaviour
     PlayerGun script;
     GameManager gameManager;
     Score score;
-    
+
+    [HideInInspector]
+    public Vector3 originalPosition;
+
 
     // Respawn Time
     float maxDuration = 100.0f;
     float currentDuration;
     bool isTargetActive = true;
 
+    // Game Start Delay
     float maxGameStartDuration = 100.0f;
     float currentGameStartDuration;
     bool startGame = false;
 
     void Start()
     {
+        originalPosition = transform.position;
+
         score = GameObject.Find("Score Text").GetComponent<Score>();
         script = GameObject.Find("Gun").GetComponent<PlayerGun>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        moveSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
 
         // Random direction
         if (Random.value <= 0.5f)

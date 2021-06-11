@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public AudioSource gameOver;
     bool endGame = false;
+    bool targetMove = false;
 
     // Game Over Delay
     float currentDuration;
@@ -55,22 +56,37 @@ public class GameManager : MonoBehaviour
             //Timer stuff
             if (minutes <= 0 && seconds <= 0)
             {
+                // Delay
                 endGame = true;
-
                 currentDuration = 0.0f;
                 maxDuration = Time.deltaTime + 3.0f;
 
-
                 //round finished
                 isRoundActive = false;
+                targetMove = false;
 
                 // Game over sound
                 gameOver.Play();
 
                 foreach (GameObject target in targetArray)
                 {
-                    target.GetComponent<TargetHit>().DisableTarget();
+                    TargetHit hit = target.GetComponent<TargetHit>();
+
+                    hit.targetMove = false;
+                    hit.DisableTarget();
+                    hit.transform.position = hit.originalPosition;
                 }
+            }
+            else if (!targetMove && minutes < 1)
+            {
+                // Targets moves when under 1 min
+          
+                foreach (GameObject target in targetArray)
+                {
+                    target.GetComponent<TargetHit>().targetMove = true;
+                }
+
+                targetMove = true;
             }
             else
             {
@@ -87,6 +103,7 @@ public class GameManager : MonoBehaviour
                 seconds -= Time.deltaTime;
             }
 
+
             //Conversion to remove decimals from displaying
             int convertedSeconds = (int)seconds;
 
@@ -98,6 +115,7 @@ public class GameManager : MonoBehaviour
         }
 
 
+        // Delay Timer
         if (endGame && currentDuration > maxDuration)
         {
             endGame = false;
