@@ -2355,7 +2355,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938843498}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b0d127a3aa6d9c140874abd52bba3b92, type: 3}
@@ -2451,7 +2451,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938843498}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2548,7 +2548,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938843498}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8c581db52f8d83428fcd6a57689f5f2, type: 3}
   m_Name: 
@@ -5854,15 +5854,19 @@ PrefabInstance:
       objectReference: {fileID: 575123812}
     - target: {fileID: 279156687, guid: 42a942fb820508c46bf10c5f0753c09f, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 279156687, guid: 42a942fb820508c46bf10c5f0753c09f, type: 3}
+      propertyPath: inputInstruction
+      value: 
+      objectReference: {fileID: 564263288}
     - target: {fileID: 279156688, guid: 42a942fb820508c46bf10c5f0753c09f, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 279156689, guid: 42a942fb820508c46bf10c5f0753c09f, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2154437325524806383, guid: 42a942fb820508c46bf10c5f0753c09f,
         type: 3}
