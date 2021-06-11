@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2753343232728426392}
   - component: {fileID: 6588433833053380014}
   - component: {fileID: 599639287579025751}
+  - component: {fileID: 7355389155396983046}
+  - component: {fileID: 311918805093805582}
   m_Layer: 0
   m_Name: Target1_01
   m_TagString: Untagged
@@ -79,3 +81,39 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7355389155396983046
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184040767393764747}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1636486, y: 1.5689074, z: 0.14519174}
+  m_Center: {x: 0, y: 0.7844537, z: 0.029491527}
+--- !u!114 &311918805093805582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184040767393764747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6709ed134dd80434ab1a79047aae5ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minMoveLength: -1
+  maxMoveLength: 1
+  minMoveSpeed: 0.03
+  maxMoveSpeed: 0.05
+  hitSound: {fileID: 0}
+  respawnSound: {fileID: 0}
+  gameStartSound: {fileID: 0}
+  respawnTime: 2
+  targetMove: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  startGameDelay: 0
