@@ -1661,8 +1661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0421fe6940d4bd4419003be455901458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundTimerMinutes: 1
-  roundTimerSeconds: 30
+  roundTimerMinutes: 0
+  roundTimerSeconds: 5
   timerTextObj: {fileID: 1666451030}
   roundStarter: {fileID: 0}
   targetArray:
@@ -1677,7 +1677,7 @@ MonoBehaviour:
   - {fileID: 1209700399}
   - {fileID: 246755249}
   shootTargetText: {fileID: 1457683953}
-  gameOverSound: {fileID: 0}
+  gameOverSound: {fileID: 575123814}
   endGameDelay: 0
   isRoundActive: 0
   minutes: 0
