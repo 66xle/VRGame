@@ -38,7 +38,7 @@ public class TargetHit : MonoBehaviour
     // Game Start Delay
     float maxGameStartDuration = 100.0f;
     float currentGameStartDuration;
-    bool startGame = false;
+    [HideInInspector] public bool startGame = false;
 
     void Start()
     {
@@ -110,6 +110,8 @@ public class TargetHit : MonoBehaviour
 
             // Reset Score
             score.currentScore = 0;
+
+            gameManager.shootTargetText.SetActive(false);
         }
         else if (other.tag == "Bullet")
         {

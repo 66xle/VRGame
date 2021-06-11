@@ -26,11 +26,12 @@ public class PlayerGun : MonoBehaviour
     LineRenderer lr;
     List<GameObject> bulletsFired;
 
-    public GameObject inputInstruction;
+    GameObject inputInstruction;
 
     void Start()
     {
         allowKMDebug = Application.isEditor; // Check if game runs in unity
+        inputInstruction = GameObject.Find("Input Instruction");
 
         // Line distance 0
         lr = GetComponent<LineRenderer>();
@@ -47,6 +48,11 @@ public class PlayerGun : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
         {
             inputInstruction.SetActive(false);
+
+            if (!gameManager.roundStarter.GetComponent<TargetHit>().startGame && !gameManager.endGame && !gameManager.isRoundActive)
+            {
+                gameManager.shootTargetText.SetActive(true);
+            }
         }
 
         Vector3 position = new Vector3();

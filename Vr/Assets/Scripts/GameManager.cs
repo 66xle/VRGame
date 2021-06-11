@@ -15,9 +15,12 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public GameObject roundStarter;
     public GameObject[] targetArray;
+    public GameObject shootTargetText;
 
     public AudioSource gameOver;
-    bool endGame = false;
+
+    [HideInInspector]
+    public bool endGame = false;
     bool targetMove = false;
 
     // Game Over Delay
@@ -122,6 +125,7 @@ public class GameManager : MonoBehaviour
 
             roundStarter = targetArray[Random.Range(0, targetArray.Length)];
             roundStarter.GetComponent<TargetHit>().EnableTarget();
+            shootTargetText.SetActive(true);
         }
         else if (endGame)
         {
