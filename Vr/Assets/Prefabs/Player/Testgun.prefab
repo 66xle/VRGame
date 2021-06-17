@@ -249,6 +249,7 @@ MonoBehaviour:
   aimDistance: 0.3
   aimYOffset: -0.05
   aimXOffset: 0
+  shootDelay: 2
 --- !u!1001 &6814482671068296517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -264,6 +265,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 4690991701264764187, guid: 9f747e9577129a742b9c85f2cdaeb884,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690991701264764187, guid: 9f747e9577129a742b9c85f2cdaeb884,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a88b80ea6fcaaa046953c013e04514e6, type: 2}
@@ -271,12 +277,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 549285606c79e3d4f865ee5a0132860d, type: 2}
+      objectReference: {fileID: 2100000, guid: a88b80ea6fcaaa046953c013e04514e6, type: 2}
     - target: {fileID: 4690991701264764187, guid: 9f747e9577129a742b9c85f2cdaeb884,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 549285606c79e3d4f865ee5a0132860d, type: 2}
+      objectReference: {fileID: 2100000, guid: a88b80ea6fcaaa046953c013e04514e6, type: 2}
     - target: {fileID: 6423564725575170503, guid: 9f747e9577129a742b9c85f2cdaeb884,
         type: 3}
       propertyPath: m_Name
