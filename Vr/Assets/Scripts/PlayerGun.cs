@@ -19,8 +19,7 @@ public class PlayerGun : MonoBehaviour
 
     #region Internal variables
 
-    float shootDuration = 0f;
-    float maxShootDuration = -1f;
+    bool canShoot = true;
 
     bool isAimTrigged = false;
     bool allowKMDebug;
@@ -141,7 +140,7 @@ public class PlayerGun : MonoBehaviour
         // Bullet direction
         Ray ray = new Ray(controllerPos, transform.forward);
 
-        if (shootDuration > maxShootDuration)
+        if (canShoot)
         {
             // Shoot Bullet
             if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.Mouse0))
@@ -158,14 +157,18 @@ public class PlayerGun : MonoBehaviour
                 gunSound.Play();
 
                 // Delay Shooting
-                shootDuration = 0f;
-                maxShootDuration = Time.deltaTime + shootDelay;
+                StartCoroutine(DelayShoot());
             }
         }
-        else
-        {
-            shootDuration += Time.deltaTime;
-        }
+    }
+
+    IEnumerator DelayShoot()
+    {
+        canShoot = false;
+
+        yield return new WaitForSeconds(shootDelay);
+
+        canShoot = true;
     }
 
     public void RemoveBulletFromList(GameObject bullet)

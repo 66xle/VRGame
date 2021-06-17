@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,13 +28,9 @@ public class TargetHit : MonoBehaviour
     [HideInInspector] public Vector3 originalPosition;
 
     // Respawn Time
-    float maxRespawnTime = 100.0f;
-    float currentRespawnTime;
     bool isTargetActive = true;
 
     // Game Start Delay
-    float maxGameStartDuration = 100.0f;
-    float currentGameStartDuration;
     [HideInInspector] public bool startGameDelay = false;
 
     // Classes
@@ -77,45 +73,6 @@ public class TargetHit : MonoBehaviour
 
     void Update()
     {
-        #region Game Start Sound Delay
-
-        if (startGameDelay && currentGameStartDuration > maxGameStartDuration)
-        {
-            startGameDelay = false;
-
-            //start round
-            gameManager.isRoundActive = true;
-            gameManager.minutes = gameManager.roundTimerMinutes;
-            gameManager.seconds = gameManager.roundTimerSeconds;
-
-            foreach (GameObject target in gameManager.targetArray)
-            {
-                target.GetComponent<TargetHit>().EnableTarget();
-            }
-        }
-        else if (startGameDelay)
-        {
-            currentGameStartDuration += Time.deltaTime;
-        }
-
-        #endregion
-
-        #region Respawn
-
-        if (!isTargetActive && gameManager.isRoundActive && currentRespawnTime > maxRespawnTime)
-        {
-            EnableTarget();
-
-            // Play sound
-            respawnSound.Play();
-        }
-        else
-        {
-            currentRespawnTime += Time.deltaTime;
-        }
-
-        #endregion
-
         #region Moving Target
 
         if (targetMove && isTargetActive)
@@ -164,42 +121,73 @@ public class TargetHit : MonoBehaviour
         // Player shoots starting round target
         if (!gameManager.isRoundActive)
         {
-            startGameDelay = true;
-            gameStartSound.Play();
-
-            DisableTarget();
-
-            // Delay spawn targets
-            currentGameStartDuration = 0.0f;
-            maxGameStartDuration = Time.deltaTime + 3.0f;
-
-            // Remove bullet
-            script.RemoveBulletFromList(other.gameObject);
-
-            // Reset Score
-            score.currentScore = 0;
-
-            // Disable UI
-            gameManager.shootTargetText.SetActive(false);
+            StartCoroutine(GameStart(other));
         }
         else if (other.tag == "Bullet")
         {
-            DisableTarget();
-
-            // Respawn Time
-            currentRespawnTime = 0.0f;
-            maxRespawnTime = Time.deltaTime + respawnTime;
-
-            // Score
-            score.AddScore();
-
-            // Sound
-            hitSound.Play();
-
-            // Remove bullet
-            script.RemoveBulletFromList(other.gameObject);
+            StartCoroutine(RespawnTarget(other));
         }
     }
 
-    
+    IEnumerator RespawnTarget(Collider other)
+    {
+        DisableTarget();
+
+        // Score
+        score.AddScore();
+
+        // Sound
+        hitSound.Play();
+
+        // Remove bullet
+        script.RemoveBulletFromList(other.gameObject);
+
+
+        // Delay
+        yield return new WaitForSeconds(respawnTime);
+
+
+        if (!isTargetActive && gameManager.isRoundActive)
+        {
+            EnableTarget();
+
+            // Play sound
+            respawnSound.Play();
+        }
+    }
+
+    IEnumerator GameStart(Collider other)
+    {
+        startGameDelay = true;
+
+        gameStartSound.Play();
+
+        DisableTarget();
+
+        // Remove bullet
+        script.RemoveBulletFromList(other.gameObject);
+
+        // Reset Score
+        score.currentScore = 0;
+
+        // Disable UI
+        gameManager.shootTargetText.SetActive(false);
+
+        
+        // Delay
+        yield return new WaitForSeconds(3f);
+
+
+        startGameDelay = false;
+
+        //start round
+        gameManager.isRoundActive = true;
+        gameManager.minutes = gameManager.roundTimerMinutes;
+        gameManager.seconds = gameManager.roundTimerSeconds;
+
+        foreach (GameObject target in gameManager.targetArray)
+        {
+            target.GetComponent<TargetHit>().EnableTarget();
+        }
+    }
 }
