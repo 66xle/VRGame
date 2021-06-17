@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
             {
                 StartCoroutine(EndGame());
             }
-            else if (!isTargetMoving && minutes < 1)
+            else if (!isTargetMoving && minutes == 0 && seconds <= 30)
             {
                 // Targets moves when under 1 min
           
