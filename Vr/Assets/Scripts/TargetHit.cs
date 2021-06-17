@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -144,8 +144,7 @@ public class TargetHit : MonoBehaviour
         go.GetComponent<MeshRenderer>().enabled = false;
 
         // Disable collider
-        go.GetComponents<BoxCollider>()[0].enabled = false;
-        go.GetComponents<BoxCollider>()[1].enabled = false;
+        go.GetComponent<BoxCollider>().enabled = false;
 
         isTargetActive = false;
     }
@@ -155,9 +154,7 @@ public class TargetHit : MonoBehaviour
         // Enable target after set amount of time
         GameObject go = transform.gameObject;
         go.GetComponent<MeshRenderer>().enabled = true;
-
-        go.GetComponents<BoxCollider>()[0].enabled = true;
-        go.GetComponents<BoxCollider>()[1].enabled = true;
+        go.GetComponent<BoxCollider>().enabled = true;
 
         isTargetActive = true;
     }
