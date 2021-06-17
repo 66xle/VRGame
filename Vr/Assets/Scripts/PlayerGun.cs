@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerGun : MonoBehaviour
 {
     public Transform cameraRig;
     public GameObject bullet;
     public GameManager gameManager;
+    public VisualEffect muzzleFlash;
 
     [Header("Gun Values")]
     public float bulletSpeed = 5.0f;
@@ -50,6 +52,8 @@ public class PlayerGun : MonoBehaviour
         gunSound = GetComponent<AudioSource>();
 
         bulletsFired = new List<GameObject>();
+
+        muzzleFlash = GetComponentInChildren<VisualEffect>();
     }
 
     void Update()
@@ -154,7 +158,11 @@ public class PlayerGun : MonoBehaviour
                 bulletsFired.Add(go);
 
                 // Shoot sound
+                gunSound.pitch = Random.Range(0.9f, 1.0f);
                 gunSound.Play();
+
+                //effect
+                muzzleFlash.Play();
 
                 // Delay Shooting
                 StartCoroutine(DelayShoot());
