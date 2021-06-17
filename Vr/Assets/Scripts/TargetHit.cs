@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using System;
 
 public class TargetHit : MonoBehaviour
 {
@@ -92,6 +93,9 @@ public class TargetHit : MonoBehaviour
         }
 
         #endregion
+
+ 
+        
     }
 
     public void DisableTarget()

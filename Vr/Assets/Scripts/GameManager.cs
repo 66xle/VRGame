@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public float seconds;
 
+    public ParticleSystem confetti;
+
     void Awake()
     {
         // Choose random target to be round starter
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
         isRoundActive = false;
         minutes = roundTimerMinutes;
         seconds = roundTimerSeconds;
+        confetti = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -105,6 +108,7 @@ public class GameManager : MonoBehaviour
 
         // Game over sound
         gameOverSound.Play();
+        confetti.Play();
 
         foreach (GameObject target in targetArray)
         {
@@ -118,7 +122,7 @@ public class GameManager : MonoBehaviour
 
         // Delay
         yield return new WaitForSeconds(3f);
-
+        confetti.Stop();
 
         endGameDelay = false;
 

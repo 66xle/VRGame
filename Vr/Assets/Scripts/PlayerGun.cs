@@ -141,6 +141,8 @@ public class PlayerGun : MonoBehaviour
 
     void Shoot()
     {
+
+        
         // Bullet direction
         Ray ray = new Ray(controllerPos, transform.forward);
 
