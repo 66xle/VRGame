@@ -263,6 +263,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Target2_01 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9146686160488283765, guid: c8bb5cfa33b1fa04389774cb85ab8c36,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 9146686160488283765, guid: c8bb5cfa33b1fa04389774cb85ab8c36,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 9146686160488283765, guid: c8bb5cfa33b1fa04389774cb85ab8c36,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8bb5cfa33b1fa04389774cb85ab8c36, type: 3}
 --- !u!4 &76512076 stripped
@@ -642,6 +657,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1309219398}
     m_Modifications:
+    - target: {fileID: 311918805093805582, guid: bd3df8952f20d0347a2636f6e9abbc7f,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 311918805093805582, guid: bd3df8952f20d0347a2636f6e9abbc7f,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 311918805093805582, guid: bd3df8952f20d0347a2636f6e9abbc7f,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     - target: {fileID: 1184040767393764747, guid: bd3df8952f20d0347a2636f6e9abbc7f,
         type: 3}
       propertyPath: m_Name
@@ -717,6 +747,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1309219398}
     m_Modifications:
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     - target: {fileID: 5604230490862660182, guid: 6102cfe5cf4a22a4581e60b6314254c5,
         type: 3}
       propertyPath: m_Name
@@ -1195,6 +1240,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Target2_01
       objectReference: {fileID: 0}
+    - target: {fileID: 9146686160488283765, guid: c8bb5cfa33b1fa04389774cb85ab8c36,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 9146686160488283765, guid: c8bb5cfa33b1fa04389774cb85ab8c36,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 9146686160488283765, guid: c8bb5cfa33b1fa04389774cb85ab8c36,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8bb5cfa33b1fa04389774cb85ab8c36, type: 3}
 --- !u!4 &405286605 stripped
@@ -1617,6 +1677,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1309219398}
     m_Modifications:
+    - target: {fileID: 311918805093805582, guid: bd3df8952f20d0347a2636f6e9abbc7f,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 311918805093805582, guid: bd3df8952f20d0347a2636f6e9abbc7f,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 311918805093805582, guid: bd3df8952f20d0347a2636f6e9abbc7f,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     - target: {fileID: 1184040767393764747, guid: bd3df8952f20d0347a2636f6e9abbc7f,
         type: 3}
       propertyPath: m_Name
@@ -1906,6 +1981,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1309219398}
     m_Modifications:
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     - target: {fileID: 5604230490862660182, guid: 6102cfe5cf4a22a4581e60b6314254c5,
         type: 3}
       propertyPath: m_Name
@@ -2633,6 +2723,24 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2101878017}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &734344909 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3866026170459003147, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2101878017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &734344910 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 120568690151183489, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2101878017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &734344911 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7569169913116660914, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2101878017}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &798735036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3120,6 +3228,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1309219398}
     m_Modifications:
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     - target: {fileID: 5604230490862660182, guid: 6102cfe5cf4a22a4581e60b6314254c5,
         type: 3}
       propertyPath: m_Name
@@ -3303,6 +3426,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1309219398}
     m_Modifications:
+    - target: {fileID: 311918805093805582, guid: bd3df8952f20d0347a2636f6e9abbc7f,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 311918805093805582, guid: bd3df8952f20d0347a2636f6e9abbc7f,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 311918805093805582, guid: bd3df8952f20d0347a2636f6e9abbc7f,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     - target: {fileID: 1184040767393764747, guid: bd3df8952f20d0347a2636f6e9abbc7f,
         type: 3}
       propertyPath: m_Name
@@ -4731,6 +4869,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Target2_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9146686160488283765, guid: c8bb5cfa33b1fa04389774cb85ab8c36,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 9146686160488283765, guid: c8bb5cfa33b1fa04389774cb85ab8c36,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 9146686160488283765, guid: c8bb5cfa33b1fa04389774cb85ab8c36,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8bb5cfa33b1fa04389774cb85ab8c36, type: 3}
 --- !u!4 &1287454129 stripped
@@ -6829,6 +6982,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1309219398}
     m_Modifications:
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 734344911}
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: respawnSound
+      value: 
+      objectReference: {fileID: 734344910}
+    - target: {fileID: 4092084676777658556, guid: 6102cfe5cf4a22a4581e60b6314254c5,
+        type: 3}
+      propertyPath: gameStartSound
+      value: 
+      objectReference: {fileID: 734344909}
     - target: {fileID: 5604230490862660182, guid: 6102cfe5cf4a22a4581e60b6314254c5,
         type: 3}
       propertyPath: m_Name
