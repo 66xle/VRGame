@@ -1180,6 +1180,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2182528043586324329, guid: 355ec7eed80f2334db50b71bc174e22b,
+        type: 3}
+      propertyPath: m_InitialEventNameOverriden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2182528043586324329, guid: 355ec7eed80f2334db50b71bc174e22b,
+        type: 3}
+      propertyPath: m_InitialEventName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4783498586296742904, guid: 355ec7eed80f2334db50b71bc174e22b,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -6445,6 +6455,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_Confetti
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729356383917282178, guid: 8fc0defc4c0d8254ea5a3752b8caa515,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fc0defc4c0d8254ea5a3752b8caa515, type: 3}
