@@ -15,8 +15,12 @@ public class PlayerGun : MonoBehaviour
     public float aimDistance = 10.0f;
     public float aimYOffset = -0.05f;
     public float aimXOffset = 0.0f;
+    public float shootDelay = 2.0f;
 
     #region Internal variables
+
+    float shootDuration = 0f;
+    float maxShootDuration = -1f;
 
     bool isAimTrigged = false;
     bool allowKMDebug;
@@ -120,7 +124,7 @@ public class PlayerGun : MonoBehaviour
         }
 
         // Update Laser
-        if (!isAimTrigged)
+        if (isAimTrigged)
         {
             lr.SetPosition(0, controllerPos);
             lr.SetPosition(1, transform.forward * 5000);
@@ -137,19 +141,30 @@ public class PlayerGun : MonoBehaviour
         // Bullet direction
         Ray ray = new Ray(controllerPos, transform.forward);
 
-        // Shoot Bullet
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.Mouse0))
+        if (shootDuration > maxShootDuration)
         {
-            //Removed if statment to allow shooting the round starter
-            GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 0.5f), Quaternion.LookRotation(ray.direction));
-            go.GetComponent<Rigidbody>().AddForce(bulletSpeed * 100.0f * ray.direction);
-            go.GetComponent<BulletLife>().lifeLeft = bulletLife;
+            // Shoot Bullet
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                //Removed if statment to allow shooting the round starter
+                GameObject go = Instantiate(bullet, ray.origin + (ray.direction * 0.5f), Quaternion.LookRotation(ray.direction));
+                go.GetComponent<Rigidbody>().AddForce(bulletSpeed * 100.0f * ray.direction);
+                go.GetComponent<BulletLife>().lifeLeft = bulletLife;
 
-            // Add bullet to list
-            bulletsFired.Add(go);
+                // Add bullet to list
+                bulletsFired.Add(go);
 
-            // Shoot sound
-            gunSound.Play();
+                // Shoot sound
+                gunSound.Play();
+
+                // Delay Shooting
+                shootDuration = 0f;
+                maxShootDuration = Time.deltaTime + shootDelay;
+            }
+        }
+        else
+        {
+            shootDuration += Time.deltaTime;
         }
     }
 

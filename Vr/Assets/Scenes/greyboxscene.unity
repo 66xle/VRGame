@@ -2799,6 +2799,10 @@ PrefabInstance:
       propertyPath: inputInstruction
       value: 
       objectReference: {fileID: 564263288}
+    - target: {fileID: 279156687, guid: 42a942fb820508c46bf10c5f0753c09f, type: 3}
+      propertyPath: shootDelay
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2154437325524806383, guid: 42a942fb820508c46bf10c5f0753c09f,
         type: 3}
       propertyPath: m_Name
@@ -7008,6 +7012,7 @@ MonoBehaviour:
   aimDistance: 0.3
   aimYOffset: -0.05
   aimXOffset: 0
+  shootDelay: 0.5
 --- !u!120 &2122569479
 LineRenderer:
   m_ObjectHideFlags: 0
